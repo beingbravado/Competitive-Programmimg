@@ -12,18 +12,23 @@ public class C {
             double m = Double.parseDouble(s[1]);
             double p = Double.parseDouble(s[2]);
             double v = Double.parseDouble(s[3]);
-            solution = 0f;
+            solution = 0d;
             slips(c, m, p, v, 1, 1);
             System.out.println(solution);
         }
     }
 
     public static void slips(double c, double m, double p, double v, double prob, double length) {
-        solution += length * prob * p;
-        // System.out.println(c + " " + m + " " + p + " " + prob * p);
+        if (c < 0.000001)
+            c = 0;
+        if (m < 0.000001)
+            m = 0;
+
         if (c == 0 && m == 0) {
+            solution += length * prob * p;
             return;
         }
+        solution += length * prob * p;
         if (c > v)
             if (m > 0)
                 slips(c - v, m + v / 2, p + v / 2, v, prob * c, length + 1);
